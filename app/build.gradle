@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'dev.nullcode.powerflash'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "dev.nullcode.powerflash"
+        minSdk 27
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    // de.robv.android.xposed:api:82 is dead on every public Maven repo
+    // (jcenter/bintray shut down, never republished to Central — confirmed
+    // the io.github.kyuubiran.ezxhelper wrapper doesn't expose the classes
+    // either). Vendoring the real compiled jar locally instead: app/libs/api-82.jar.
+    compileOnly files('libs/api-82.jar')
+}
